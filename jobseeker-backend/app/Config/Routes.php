@@ -14,6 +14,23 @@ $routes->group('api', ["filter" => ["cors", "auth"]],  function($routes) {
 	$routes->delete('users/(:num)', 'Api\ApiUser::delete/$1');
 	$routes->get('users/page', 'Api\ApiUser::page');
 	//admin
+	// $routes->get('admin', 'Api\ApiAdmin::index');
+	// $routes->post('admin', 'Api\ApiAdmin::create');
+	// $routes->get('admin/(:num)', 'Api\ApiAdmin::show/$1');
+	// $routes->patch('admin/(:num)', 'Api\ApiAdmin::update/$1');
+	// $routes->delete('admin/(:num)', 'Api\ApiAdmin::delete/$1');
+	// $routes->get('admin/page', 'Api\ApiAdmin::page');
+	//company
+	$routes->get('company', 'Api\ApiCompany::index');
+	$routes->post('company', 'Api\ApiCompany::create');
+	$routes->get('company/(:num)', 'Api\ApiCompany::show/$1');
+	$routes->patch('company/(:num)', 'Api\ApiCompany::update/$1');
+	$routes->delete('company/(:num)', 'Api\ApiCompany::delete/$1');
+	$routes->get('company/page', 'Api\ApiCompany::page');
+	
+});
+$routes->group('api', ["filter" => ["cors", "authadmin"]],  function($routes) {
+
 	$routes->get('admin', 'Api\ApiAdmin::index');
 	$routes->post('admin', 'Api\ApiAdmin::create');
 	$routes->get('admin/(:num)', 'Api\ApiAdmin::show/$1');
@@ -25,3 +42,4 @@ $routes->post('/api/users', 'Api\ApiUser::create', ['filter' => 'cors']);
 
 
 $routes->post('/api/users/token', 'Api\AuthController::login', ['filter' => 'cors']);
+$routes->post('/api/admin/token', 'Api\AuthControllerAdmin::login', ['filter' => 'cors']);

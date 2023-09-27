@@ -105,7 +105,7 @@ class ApiAdmin extends BaseController
 			'firstname' => $this->request->getVar('firstname') ? $this->request->getVar('firstname') : $exist['firstname'],
 			'lastname' => $this->request->getVar('lastname')  ? $this->request->getVar('lastname') : $exist['lastname'],
         ];
-
+        
         $db = new MdlAdmin;
         $save  = $db->update( $id, $update);
         

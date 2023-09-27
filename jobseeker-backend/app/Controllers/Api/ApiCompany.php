@@ -51,7 +51,7 @@ class ApiCompany extends BaseController
 			'company_name' 	=> 'required',
 			'company_desc' 	=> 'required',
 			'user_id'	   	=> 'required',
-
+		
 		]))
 		{
 			return $this->response->setJSON(['success' => false, 'data' => null, "message" => \Config\Services::validation()->getErrors()]);
@@ -81,10 +81,8 @@ class ApiCompany extends BaseController
 	public function update($id)
 	{
 		if (! $this->validate([
-            'email' => 'permit_empty|is_unique[user.email,id,'.$id.']',
-            'password' => 'permit_empty|min_length[6]',
-			'firstname' => 'permit_empty',
-			'lastname' => 'permit_empty',
+            'company_name' 	=> 'required',
+			'company_desc' 	=> 'required',
         ])) {
             return $this->response->setJSON(['success' => false, "message" => \Config\Services::validation()->getErrors()]);
         }
@@ -98,10 +96,8 @@ class ApiCompany extends BaseController
 		}
 		
         $update = [
-            'email' => $this->request->getVar('email') ? $this->request->getVar('email') : $exist['email'],
-            'password' => $this->request->getVar('password') ? password_hash($this->request->getVar('password'), PASSWORD_DEFAULT) : $exist['password'],
-			'firstname' => $this->request->getVar('firstname') ? $this->request->getVar('firstname') : $exist['firstname'],
-			'lastname' => $this->request->getVar('lastname')  ? $this->request->getVar('lastname') : $exist['lastname'],
+            'company_name' => $this->request->getVar('company_name') ? $this->request->getVar('company_name') : $exist['company_name'],
+			'company_desc' => $this->request->getVar('company_desc') ? $this->request->getVar('company_desc') : $exist['company_desc'],
         ];
 
         $db = new MdlCompany;
@@ -116,7 +112,7 @@ class ApiCompany extends BaseController
 		$db->where('id', $id);
 		$db->delete();
 		
-		return $this->response->setJSON( ['sucess'=> true, 'mesage' => 'OK'] );
+		return $this->response->setJSON( ['sucess'=> true, 'message' => 'OK'] );
 	}
 
 }
