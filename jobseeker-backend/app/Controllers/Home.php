@@ -8,14 +8,13 @@ class Home extends BaseController
 		// parent::__construct();
         // $this->lists = new Lists;
 	}
-    public function index(): string
-    {
+    public function index(){
         // return view('welcome_message');
         
         //  Fetch list of controllers 
         
-        print_r($this->router->routes);
-
+        // print_r($this->router->routes);
+    
 
 
     }

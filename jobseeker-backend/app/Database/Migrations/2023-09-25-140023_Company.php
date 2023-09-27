@@ -30,6 +30,11 @@ class Company extends Migration
             'constraint' => 500,
             'null' => true,
           ],
+        'user_id' => [
+          'type' => 'INT',
+          'constraint' => 10,
+          'null' => true,
+        ],
         'prov_id' => [
           'type' => 'INT',
           'constraint' => 10,

@@ -16,6 +16,34 @@ class ApiUser extends BaseController
 		$user = $db->get()->getResult();
 		return $this->response->setJSON( ['sucess'=> true, 'mesage' => 'OK', 'data' => $user] );
 	}
+	public function page(){
+		$db = new MdlUser;
+		$page = $_GET['page']??1;
+		$size = $_GET['size']??3;
+		
+		$offset = ($page -1)*$size;
+		
+		$users = $db->orderBy('id','DESC')->paginate($size,'default',$offset);
+		$totalElements = $db->countAll();
+		
+		$number = ($page <= 0)?null: $page;
+		$totalPages = ($size <= 0 )? null: ceil($totalElements/$size);
+		$firstPage = ($number ===1);
+		$lastPage = ($number ===$totalPages);
+		 //json response
+		 $response = [
+			'data'=> $users,
+			'pagination'=>[
+				'page'=>$page,
+				'size'=>$size,
+				'totalElements'=>$totalElements,
+				'number'=>$number,
+				'firstPage'=>$firstPage,
+				'lastPage'=>$lastPage
+				]
+			];
+		 return $this->respond(json_encode($response));
+	}
 
 	public function create()
 	{

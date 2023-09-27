@@ -7,21 +7,21 @@ use CodeIgniter\Model;
 class MdlAdmin extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'mdladmins';
+    protected $table            = 'admin';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = [];
-
+    protected $allowedFields    = ["id","firstname","lastname","password","email","profile_picture","level","status","updated_at","deleted_at","created_at"];
+    
     // Dates
-    protected $useTimestamps = false;
+    protected $useTimestamps = true;
     protected $dateFormat    = 'datetime';
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';
     protected $deletedField  = 'deleted_at';
-
+    
     // Validation
     protected $validationRules      = [];
     protected $validationMessages   = [];

@@ -1,78 +1,122 @@
 <?php
 
-namespace App\Controllers;
+namespace App\Controllers\Api;
 
-use CodeIgniter\RESTful\ResourceController;
+use App\Controllers\BaseController;
+use App\Models\MdlCompany;
+use CodeIgniter\API\ResponseTrait;
 
-class ApiCompany extends ResourceController
+class ApiCompany extends BaseController
 {
-    /**
-     * Return an array of resource objects, themselves in array format
-     *
-     * @return mixed
-     */
-    public function index()
-    {
-        //
-    }
+	use ResponseTrait;
+	
+	public function index()
+	{
+		$db = new MdlCompany;
+		$data = $db->get()->getResult();
+		return $this->response->setJSON( ['sucess'=> true, 'mesage' => 'OK', 'data' => $data] );
+	}
+	public function page(){
+		$db = new MdlCompany;
+		$page = $_GET['page']??1;
+		$size = $_GET['size']??3;
+		
+		$offset = ($page -1)*$size;
+		
+		$data = $db->orderBy('id','DESC')->paginate($size,'default',$offset);
+		$totalElements = $db->countAll();
+		
+		$number = ($page <= 0)?null: $page;
+		$totalPages = ($size <= 0 )? null: ceil($totalElements/$size);
+		$firstPage = ($number ===1);
+		$lastPage = ($number ===$totalPages);
+		 //json response
+		 $response = [
+			'data'=> $data,
+			'pagination'=>[
+				'page'=>$page,
+				'size'=>$size,
+				'totalElements'=>$totalElements,
+				'number'=>$number,
+				'firstPage'=>$firstPage,
+				'lastPage'=>$lastPage
+				]
+			];
+		 return $this->respond(json_encode($response));
+	}
 
-    /**
-     * Return the properties of a resource object
-     *
-     * @return mixed
-     */
-    public function show($id = null)
-    {
-        //
-    }
+	public function create()
+	{
+		if( !$this->validate([
+			'company_name' 	=> 'required',
+			'company_desc' 	=> 'required',
+			'user_id'	   	=> 'required',
 
-    /**
-     * Return a new resource object, with default properties
-     *
-     * @return mixed
-     */
-    public function new()
-    {
-        //
-    }
+		]))
+		{
+			return $this->response->setJSON(['success' => false, 'data' => null, "message" => \Config\Services::validation()->getErrors()]);
+		}
 
-    /**
-     * Create a new resource object, from "posted" parameters
-     *
-     * @return mixed
-     */
-    public function create()
-    {
-        //
-    }
+		$insert = [
+            'company_name' => $this->request->getVar('company_name'),
+			'company_desc' => $this->request->getVar('company_desc'),
+			'user_id' => $this->request->getVar('user_id'),
+	
+        ];
+		
+		$db = new MdlCompany;
+		$save  = $db->insert($insert);
+		
+		return $this->setResponseFormat('json')->respondCreated( ['sucess'=> true, 'mesage' => 'OK'] );
+	}
+	
+	public function show($id)
+	{
+		$db = new MdlCompany;
+		$data = $db->where('id', $id)->first();
+		
+		return $this->response->setJSON( ['sucess'=> true, 'mesage' => 'OK', 'data' => $data] );
+	}
 
-    /**
-     * Return the editable properties of a resource object
-     *
-     * @return mixed
-     */
-    public function edit($id = null)
-    {
-        //
-    }
+	public function update($id)
+	{
+		if (! $this->validate([
+            'email' => 'permit_empty|is_unique[user.email,id,'.$id.']',
+            'password' => 'permit_empty|min_length[6]',
+			'firstname' => 'permit_empty',
+			'lastname' => 'permit_empty',
+        ])) {
+            return $this->response->setJSON(['success' => false, "message" => \Config\Services::validation()->getErrors()]);
+        }
+		
+		$db = new MdlCompany;
+		$exist = $db->where('id', $id)->first();
 
-    /**
-     * Add or update a model resource, from "posted" properties
-     *
-     * @return mixed
-     */
-    public function update($id = null)
-    {
-        //
-    }
+		if( !$exist )
+		{
+			return $this->response->setJSON(['success' => false, "message" => 'User not found']);
+		}
+		
+        $update = [
+            'email' => $this->request->getVar('email') ? $this->request->getVar('email') : $exist['email'],
+            'password' => $this->request->getVar('password') ? password_hash($this->request->getVar('password'), PASSWORD_DEFAULT) : $exist['password'],
+			'firstname' => $this->request->getVar('firstname') ? $this->request->getVar('firstname') : $exist['firstname'],
+			'lastname' => $this->request->getVar('lastname')  ? $this->request->getVar('lastname') : $exist['lastname'],
+        ];
 
-    /**
-     * Delete the designated resource object from the model
-     *
-     * @return mixed
-     */
-    public function delete($id = null)
-    {
-        //
-    }
+        $db = new MdlCompany;
+        $save  = $db->update( $id, $update);
+        
+        return $this->response->setJSON(['success' => true,'message' => 'OK']);
+	}
+
+	public function delete($id)
+	{
+		$db = new MdlCompany;
+		$db->where('id', $id);
+		$db->delete();
+		
+		return $this->response->setJSON( ['sucess'=> true, 'mesage' => 'OK'] );
+	}
+
 }
