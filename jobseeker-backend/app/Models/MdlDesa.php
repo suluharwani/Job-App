@@ -4,16 +4,16 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class MdlKecamatan extends Model
+class MdlDesa extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'districts';
-    protected $primaryKey       = 'dis_id';
+    protected $table            = 'subdistricts';
+    protected $primaryKey       = 'subdis_id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['dis_id', 'dis_name','city_id'];
+    protected $allowedFields    = ['subdis_id','subdis_name','dis_id'];
     
     // Dates
     protected $useTimestamps = false;

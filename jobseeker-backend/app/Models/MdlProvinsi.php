@@ -7,14 +7,14 @@ use CodeIgniter\Model;
 class MdlProvinsi extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'mdlprovinsis';
-    protected $primaryKey       = 'id';
+    protected $table            = 'provinces';
+    protected $primaryKey       = 'prov_id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = [];
-
+    protected $allowedFields    = ['prov_id','prov_name','locationid','status'];
+    
     // Dates
     protected $useTimestamps = false;
     protected $dateFormat    = 'datetime';

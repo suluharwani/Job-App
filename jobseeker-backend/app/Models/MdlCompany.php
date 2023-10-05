@@ -11,7 +11,7 @@ class MdlCompany extends Model
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
-    protected $useSoftDeletes   = false;
+    protected $useSoftDeletes   = true;
     protected $protectFields    = true;
     protected $allowedFields    = ["id","company_name","company_desc","company_logo","user_id","prov_id","city_id","dis_id","subdis_id","created_at","deleted_at","updated_at"];
     

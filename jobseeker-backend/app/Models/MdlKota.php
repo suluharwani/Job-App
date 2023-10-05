@@ -7,14 +7,14 @@ use CodeIgniter\Model;
 class MdlKota extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'mdlkotas';
-    protected $primaryKey       = 'id';
+    protected $table            = 'cities';
+    protected $primaryKey       = 'city_id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = [];
-
+    protected $allowedFields    = ['city_id','city_name','prov_id'];
+    
     // Dates
     protected $useTimestamps = false;
     protected $dateFormat    = 'datetime';

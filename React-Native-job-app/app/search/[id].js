@@ -1,22 +1,21 @@
-import React, { useEffect, useState } from 'react'
-import { ActivityIndicator, FlatList, Image, TouchableOpacity, View } from 'react-native'
-import { Stack, useRouter, useSearchParams } from 'expo-router'
-import { Text, SafeAreaView } from 'react-native'
 import axios from 'axios'
+import { Stack, useRouter, useSearchParams } from 'expo-router'
+import React, { useEffect, useState } from 'react'
+import { ActivityIndicator, FlatList, Image, SafeAreaView, Text, TouchableOpacity, View } from 'react-native'
 
-import { ScreenHeaderBtn, NearbyJobCard } from '../../components'
-import { COLORS, icons, SIZES } from '../../constants'
+import { NearbyJobCard, ScreenHeaderBtn } from '../../components'
+import { COLORS, SIZES, icons } from '../../constants'
 import styles from '../../styles/search'
 
 const JobSearch = () => {
     const params = useSearchParams();
     const router = useRouter()
-
+    
     const [searchResult, setSearchResult] = useState([]);
     const [searchLoader, setSearchLoader] = useState(false);
     const [searchError, setSearchError] = useState(null);
     const [page, setPage] = useState(1);
-
+    
     const handleSearch = async () => {
         setSearchLoader(true);
         setSearchResult([])

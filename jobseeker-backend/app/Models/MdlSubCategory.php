@@ -7,16 +7,16 @@ use CodeIgniter\Model;
 class MdlSubCategory extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'mdlsubcategories';
+    protected $table            = 'sub_category';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
-    protected $useSoftDeletes   = false;
+    protected $useSoftDeletes   = true;
     protected $protectFields    = true;
-    protected $allowedFields    = [];
-
+    protected $allowedFields    = ['id','category_id','sub_category','updated_at','deleted_at','created_at'];
+    
     // Dates
-    protected $useTimestamps = false;
+    protected $useTimestamps = true;
     protected $dateFormat    = 'datetime';
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';

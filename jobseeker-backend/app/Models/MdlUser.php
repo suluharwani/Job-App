@@ -11,7 +11,7 @@ class MdlUser extends Model
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
-    protected $useSoftDeletes   = false;
+    protected $useSoftDeletes   = true;
     protected $protectFields    = true;
     protected $allowedFields    =  ["id","firstname","lastname","password","email","profile_picture","level","status","updated_at","deleted_at","created_at"];
     
