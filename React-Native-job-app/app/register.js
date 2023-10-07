@@ -1,5 +1,4 @@
 import { useNavigation } from '@react-navigation/native';
-import { Stack } from "expo-router";
 
 import React from 'react';
 import { Image, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
@@ -13,11 +12,12 @@ export default function SignUpScreen() {
   return (
     <ScrollView className="flex-1 bg-white" style={{backgroundColor: themeColors.bg}}>
       <SafeAreaView className="flex">
+      {/* <Stack>
       <Stack.Screen
-                options={{
-                  headerShown: false
-                }}
-            />
+        name="Register"
+        options={{ headerShown: false, title: "Register" }}
+      />
+    </Stack> */}
         <View className="flex-row justify-start">
             <TouchableOpacity 
                 onPress={()=> navigation.goBack()}

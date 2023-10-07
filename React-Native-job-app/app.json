@@ -5,6 +5,8 @@
       "bundler": "metro"
     },
     "name": "react_native_jobs",
-    "slug": "react_native_jobs"
+    "slug": "react_native_jobs",
+    "plugins": [
+    ]
   }
 }

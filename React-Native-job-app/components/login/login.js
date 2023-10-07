@@ -3,7 +3,7 @@ import React from 'react';
 import { Image, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { ArrowLeftIcon } from 'react-native-heroicons/solid';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { themeColors } from '../theme';
+import { themeColors } from '../../theme';
 export default function LoginScreen() {
   const navigation = useNavigation();
   return (
@@ -23,7 +23,7 @@ export default function LoginScreen() {
           </TouchableOpacity>
         </View>
         <View  className="flex-row justify-center">
-          <Image source={require('../assets/images/login.png')} 
+          <Image source={require('../../assets/images/login.png')} 
           style={{width: 200, height: 200}} />
         </View>
         
@@ -62,13 +62,13 @@ export default function LoginScreen() {
           <Text className="text-xl text-gray-700 font-bold text-center py-5">Or</Text>
           <View className="flex-row justify-center space-x-12">
             <TouchableOpacity className="p-2 bg-gray-100 rounded-2xl">
-              <Image source={require('../assets/icons/google.png')} className="w-10 h-10" />
+              <Image source={require('../../assets/icons/google.png')} className="w-10 h-10" />
             </TouchableOpacity>
             <TouchableOpacity className="p-2 bg-gray-100 rounded-2xl">
-              <Image source={require('../assets/icons/apple.png')} className="w-10 h-10" />
+              <Image source={require('../../assets/icons/apple.png')} className="w-10 h-10" />
             </TouchableOpacity>
             <TouchableOpacity className="p-2 bg-gray-100 rounded-2xl">
-              <Image source={require('../assets/icons/facebook.png')} className="w-10 h-10" />
+              <Image source={require('../../assets/icons/facebook.png')} className="w-10 h-10" />
             </TouchableOpacity>
           </View>
           <View className="flex-row justify-center mt-7">
