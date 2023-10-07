@@ -14,7 +14,7 @@ const Home = () => {
                     headerStyle: { backgroundColor: COLORS.lightWhite },
                     headerShadowVisible : false,
                     headerLeft : ()=>(
-                        <ScreenHeaderBtn iconUrl={icons.menu} handlePress={() => alert('Button Menu!')}  dimension="60%"/>
+                        <ScreenHeaderBtn iconUrl={icons.menu} handlePress={() => router.push(`/profile`)}  dimension="60%"/>
                     ),
                     headerRight : ()=>(
                         <ScreenHeaderBtn iconUrl={images.profile} handlePress={() => router.push(`/login`)} dimension="100%"/>
