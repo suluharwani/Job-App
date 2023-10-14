@@ -1,25 +1,46 @@
 import { useNavigation } from '@react-navigation/native';
-import React from 'react';
-import { Image, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
-import { ArrowLeftIcon } from 'react-native-heroicons/solid';
+import React, { useState } from 'react';
+import { Alert, BackHandler, Image, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { XMarkIcon } from 'react-native-heroicons/solid';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { userLogin } from '../../src/api/userApi';
 import { themeColors } from '../../theme';
+
 export default function LoginScreen() {
   const navigation = useNavigation();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  
+  const HandleLogin= () =>{
+    if (email==''||password=='') {
+    Alert.alert(`Email/password tidak boleh kosong`)
+      
+    } else {
+      userLogin({
+        email:email,
+        password:password
+      }).then((result)=>{
+        if (result.status == 200) {
+          console.log(result.data.token)
+          console.log(result.data.data)
+          Alert.alert('login ok')
+        } else {
+          Alert.alert('login gagal')
+          
+        }
+      })
+    }
+    // Alert.alert(`${email} ${password}`)
+  }
   return (
     <ScrollView className="flex-1 bg-white" style={{backgroundColor: themeColors.bg}}>
        
       <SafeAreaView  className="flex ">
-      {/* <Stack>
-      <Stack.Screen
-        name="login"
-        options={{ headerShown: false, title: "Login" }}
-      />
-    </Stack> */}
+        
         <View className="flex-row justify-start">
-          <TouchableOpacity onPress={()=> navigation.goBack()} 
+          <TouchableOpacity onPress={()=> BackHandler.exitApp()} 
           className="bg-yellow-400 p-2 rounded-tr-2xl rounded-bl-2xl ml-4">
-            <ArrowLeftIcon size="20" color="black" />
+            <XMarkIcon size="20" color="black" />
           </TouchableOpacity>
         </View>
         <View  className="flex-row justify-center">
@@ -37,20 +58,21 @@ export default function LoginScreen() {
             <TextInput 
               className="p-4 bg-gray-100 text-gray-700 rounded-2xl mb-3"
               placeholder="email"
-              value="john@gmail.com" 
+              onChangeText={(email) => setEmail(email)}
             />
             <Text className="text-gray-700 ml-4">Password</Text>
             <TextInput 
               className="p-4 bg-gray-100 text-gray-700 rounded-2xl"
               secureTextEntry
               placeholder="password"
-              value="test12345" 
+              // secureTextEntry={true}
+              onChangeText={(password) => setPassword(password)}
             />
             <TouchableOpacity className="flex items-end">
               <Text className="text-gray-700 mb-5">Forgot Password?</Text>
             </TouchableOpacity>
             <TouchableOpacity 
-              className="py-3 bg-yellow-400 rounded-xl">
+              className="py-3 bg-yellow-400 rounded-xl" onPress={()=> HandleLogin()}>
                 <Text 
                     className="text-xl font-bold text-center text-gray-700"
                 >
@@ -73,7 +95,7 @@ export default function LoginScreen() {
           </View>
           <View className="flex-row justify-center mt-7">
               <Text className="text-gray-500 font-semibold">
-                  Don't have an account?
+                  Belum punya akun?
               </Text>
               <TouchableOpacity onPress={()=> navigation.navigate('register')}>
                   <Text className="font-semibold text-yellow-500"> Sign Up</Text>

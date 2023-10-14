@@ -1,13 +1,12 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as React from 'react';
 import {
-    ScrollView,
-    StyleSheet,
-    Text,
-    View
+  ScrollView,
+  StyleSheet,
+  Text,
+  View
 } from 'react-native';
 import { LoginScreen, Splash } from "../components";
-import { SIZES } from "../constants";
 
 const Stack = createNativeStackNavigator();
 
@@ -22,7 +21,7 @@ const styles = StyleSheet.create({
 
 function SplashScreen() {
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+    <View>
       <Splash/>
     </View>
   );
@@ -30,7 +29,7 @@ function SplashScreen() {
 
 function HomeScreen() {
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+    <View style={{}}>
       <Text>Home Screen</Text>
     </View>
   );
@@ -85,7 +84,7 @@ export default function App() {
 
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
-                <View style={{ flex:1, padding : SIZES.medium}}>
+                <View>
         {userToken == null ? (
           // No token found, user isn't signed in
         //   <Stack.Screen

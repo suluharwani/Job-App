@@ -1,29 +1,38 @@
 import { useNavigation } from '@react-navigation/native';
-
-import React from 'react';
+// import { Stack } from 'expo-router/stack';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import * as React from 'react';
 import { Image, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
-import { ArrowLeftIcon } from 'react-native-heroicons/solid';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { themeColors } from '../theme';
-
-// subscribe for more videos like this :)
+const StackS = createNativeStackNavigator();
+function RegScreen() {
+    return (
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <Text>Register User</Text>
+      </View>
+    );
+  }
 export default function SignUpScreen() {
+    // const router = useRouter();
     const navigation = useNavigation();
   return (
     <ScrollView className="flex-1 bg-white" style={{backgroundColor: themeColors.bg}}>
       <SafeAreaView className="flex">
-      {/* <Stack>
-      <Stack.Screen
-        name="Register"
-        options={{ headerShown: false, title: "Register" }}
-      />
-    </Stack> */}
+      <StackS.Navigator>
+        <StackS.Screen
+          name="Register User"
+          component={RegScreen}
+          options={{headerShown: false, title: 'Register User' }}
+        />
+      </StackS.Navigator>
         <View className="flex-row justify-start">
             <TouchableOpacity 
                 onPress={()=> navigation.goBack()}
                 className="bg-yellow-400 p-2 rounded-tr-2xl rounded-bl-2xl ml-4"
             >
-                <ArrowLeftIcon size="20" color="black" />
+                <Text>Login</Text>
+                {/* <ArrowLeftIcon size="20" color="black" /> */}
             </TouchableOpacity>
         </View>
         <View className="flex-row justify-center">
